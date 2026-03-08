@@ -26,7 +26,7 @@
  *	tie it to proprietary code, please contact Mark Stephen Sobkow
  *	for a commercial license at mark.sobkow@gmail.com
  */
-package io.github.msobkow.v3_1.cflib.dbtest.spring;
+package server.markhome.mcf.v3_1.cflib.dbtest.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

@@ -26,7 +26,7 @@
  *	tie it to proprietary code, please contact Mark Stephen Sobkow
  *	for a commercial license at mark.sobkow@gmail.com
  */
-package io.github.msobkow.v3_1.cflib.dbtest.appdb;
+package server.markhome.mcf.v3_1.cflib.dbtest.appdb;
 
 import jakarta.persistence.*;
 
@@ -36,13 +36,13 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import io.github.msobkow.v3_1.cflib.CFLibArgumentOverflowException;
-import io.github.msobkow.v3_1.cflib.CFLibNullArgumentException;
-import io.github.msobkow.v3_1.cflib.CFLibUnresolvedRelationException;
-import io.github.msobkow.v3_1.cflib.dbtest.secdb.SecDbUser;
-import io.github.msobkow.v3_1.cflib.dbtest.secdb.SecDbUserService;
-import io.github.msobkow.v3_1.cflib.dbutil.CFLibDbKeyHash256;
-import io.github.msobkow.v3_1.cflib.inz.Inz;
+import server.markhome.mcf.v3_1.cflib.CFLibArgumentOverflowException;
+import server.markhome.mcf.v3_1.cflib.CFLibNullArgumentException;
+import server.markhome.mcf.v3_1.cflib.CFLibUnresolvedRelationException;
+import server.markhome.mcf.v3_1.cflib.dbtest.secdb.SecDbUser;
+import server.markhome.mcf.v3_1.cflib.dbtest.secdb.SecDbUserService;
+import server.markhome.mcf.v3_1.cflib.dbutil.CFLibDbKeyHash256;
+import server.markhome.mcf.v3_1.cflib.inz.Inz;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

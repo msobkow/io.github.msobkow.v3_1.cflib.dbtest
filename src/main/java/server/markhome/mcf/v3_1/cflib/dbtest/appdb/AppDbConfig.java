@@ -26,7 +26,7 @@
  *	tie it to proprietary code, please contact Mark Stephen Sobkow
  *	for a commercial license at mark.sobkow@gmail.com
  */
-package io.github.msobkow.v3_1.cflib.dbtest.appdb;
+package server.markhome.mcf.v3_1.cflib.dbtest.appdb;
 
 import javax.sql.DataSource;
 
@@ -38,10 +38,10 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import io.github.msobkow.v3_1.cflib.CFLibDbException;
-import io.github.msobkow.v3_1.cflib.CFLibNullArgumentException;
-import io.github.msobkow.v3_1.cflib.dbtest.DbTest;
-import io.github.msobkow.v3_1.cflib.inz.Inz;
+import server.markhome.mcf.v3_1.cflib.CFLibDbException;
+import server.markhome.mcf.v3_1.cflib.CFLibNullArgumentException;
+import server.markhome.mcf.v3_1.cflib.dbtest.DbTest;
+import server.markhome.mcf.v3_1.cflib.inz.Inz;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -54,10 +54,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //import org.springframework.boot.autoconfigure.autoconfigure.domain.EntityScan;
 
 @Configuration
-//@EntityScan(basePackages = "io.github.msobkow.v3_1.cflib.dbtest.appdb")
+//@EntityScan(basePackages = "server.markhome.mcf.v3_1.cflib.dbtest.appdb")
 @EnableTransactionManagement
 @EnableJpaRepositories(
-    basePackages = "io.github.msobkow.v3_1.cflib.dbtest.appdb",
+    basePackages = "server.markhome.mcf.v3_1.cflib.dbtest.appdb",
     entityManagerFactoryRef = "appEntityManagerFactory",
     transactionManagerRef = "appTransactionManager"
 )public class AppDbConfig {
@@ -213,7 +213,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
                 // Configure EntityManagerFactoryBean
                 LocalContainerEntityManagerFactoryBean emfBean = new LocalContainerEntityManagerFactoryBean();
                 emfBean.setDataSource(appDataSource);
-                emfBean.setPackagesToScan("io.github.msobkow.v3_1.cflib.dbtest.appdb");
+                emfBean.setPackagesToScan("server.markhome.mcf.v3_1.cflib.dbtest.appdb");
                 emfBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
                 emfBean.setJpaProperties(appJpaProperties);
                 emfBean.setPersistenceUnitName("AppDbPU");

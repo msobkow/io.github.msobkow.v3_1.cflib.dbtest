@@ -26,11 +26,11 @@
  *	tie it to proprietary code, please contact Mark Stephen Sobkow
  *	for a commercial license at mark.sobkow@gmail.com
  */
-package io.github.msobkow.v3_1.cflib.dbtest.secdb;
+package server.markhome.mcf.v3_1.cflib.dbtest.secdb;
 
 import java.util.List;
 
-import io.github.msobkow.v3_1.cflib.dbutil.CFLibDbKeyHash256;
+import server.markhome.mcf.v3_1.cflib.dbutil.CFLibDbKeyHash256;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SecDbUserRepository extends JpaRepository<SecDbUser, CFLibDbKeyHash256> {

@@ -26,14 +26,14 @@
  *	tie it to proprietary code, please contact Mark Stephen Sobkow
  *	for a commercial license at mark.sobkow@gmail.com
  */
-package io.github.msobkow.v3_1.cflib.dbtest.spring;
+package server.markhome.mcf.v3_1.cflib.dbtest.spring;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import io.github.msobkow.v3_1.cflib.dbtest.appdb.AppDbAddress;
-import io.github.msobkow.v3_1.cflib.dbtest.appdb.AppDbAddressService;
-import io.github.msobkow.v3_1.cflib.dbutil.CFLibDbKeyHash256;
+import server.markhome.mcf.v3_1.cflib.dbtest.appdb.AppDbAddress;
+import server.markhome.mcf.v3_1.cflib.dbtest.appdb.AppDbAddressService;
+import server.markhome.mcf.v3_1.cflib.dbutil.CFLibDbKeyHash256;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;

@@ -26,7 +26,7 @@
  *	tie it to proprietary code, please contact Mark Stephen Sobkow
  *	for a commercial license at mark.sobkow@gmail.com
  */
-package io.github.msobkow.v3_1.cflib.dbtest.secdb;
+package server.markhome.mcf.v3_1.cflib.dbtest.secdb;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
@@ -45,9 +45,9 @@ import jakarta.transaction.Transactional;
 import java.util.Set;
 import java.util.HashSet;
 
-import io.github.msobkow.v3_1.cflib.CFLibArgumentOverflowException;
-import io.github.msobkow.v3_1.cflib.CFLibNullArgumentException;
-import io.github.msobkow.v3_1.cflib.dbutil.CFLibDbKeyHash256;
+import server.markhome.mcf.v3_1.cflib.CFLibArgumentOverflowException;
+import server.markhome.mcf.v3_1.cflib.CFLibNullArgumentException;
+import server.markhome.mcf.v3_1.cflib.dbutil.CFLibDbKeyHash256;
 
 @Entity
 @DiscriminatorValue("1")

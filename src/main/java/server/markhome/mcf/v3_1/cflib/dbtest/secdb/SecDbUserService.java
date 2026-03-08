@@ -26,15 +26,16 @@
  *	tie it to proprietary code, please contact Mark Stephen Sobkow
  *	for a commercial license at mark.sobkow@gmail.com
  */
-package io.github.msobkow.v3_1.cflib.dbtest.secdb;
+package server.markhome.mcf.v3_1.cflib.dbtest.secdb;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-import io.github.msobkow.v3_1.cflib.CFLibDbException;
-import io.github.msobkow.v3_1.cflib.CFLibNullArgumentException;
-import io.github.msobkow.v3_1.cflib.dbutil.CFLibDbKeyHash256;
-import io.github.msobkow.v3_1.cflib.inz.Inz;
+import server.markhome.mcf.v3_1.cflib.CFLibDbException;
+import server.markhome.mcf.v3_1.cflib.CFLibNullArgumentException;
+import server.markhome.mcf.v3_1.cflib.dbutil.CFLibDbKeyHash256;
+import server.markhome.mcf.v3_1.cflib.inz.Inz;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,40 +48,56 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import jakarta.persistence.NoResultException;
 
-@Service("SecDbSessionService")
-public class SecDbSessionService {
+@Service("SecDbUserService")
+public class SecDbUserService {
 
     @Autowired
     @Qualifier("secEntityManagerFactory")
-    private LocalContainerEntityManagerFactoryBean secEntityManagerFactoryBean;
+    private LocalContainerEntityManagerFactoryBean secEntityManagerFactory;
     
     @Autowired
-    private SecDbSessionRepository secDbSessionRepository;
+    private SecDbUserRepository secDbUserRepository;
 
     @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = NoResultException.class, transactionManager = "secTransactionManager")
-    public SecDbSession find(CFLibDbKeyHash256 pid) {
-        return secDbSessionRepository.findById(pid).orElse(null);
+    public SecDbUser find(CFLibDbKeyHash256 pid) {
+        return secDbUserRepository.findById(pid).orElse(null);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = NoResultException.class, transactionManager = "secTransactionManager")
-    public List<SecDbSession> findByUser(SecDbUser user) {
-        if (user == null || user.getPid() == null || user.getPid().isNull()) {
+    public SecDbUser findByName(String name) {
+        if (name == null || name.isEmpty()) {
             return null;
         }
-        SecDbSession probe = new SecDbSession();
-        probe.setSecUser(user);
+        SecDbUser probe = new SecDbUser();
+        probe.setUsername(name);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
             .withIgnoreNullValues()
-            .withMatcher("secuser_pid", ExampleMatcher.GenericPropertyMatchers.exact());
+            .withMatcher("username", ExampleMatcher.GenericPropertyMatchers.exact());
 
-        Example<SecDbSession> example = Example.of(probe, matcher);
+        Example<SecDbUser> example = Example.of(probe, matcher);
 
-        return secDbSessionRepository.findAll(example);
+        return secDbUserRepository.findOne(example).orElse(null);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = NoResultException.class, transactionManager = "secTransactionManager")
+    public List<SecDbUser> findByEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return secDbUserRepository.findByEmail(email);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = NoResultException.class, transactionManager = "secTransactionManager")
+    public List<SecDbUser> findByMemberDeptCode(String memberDeptCode) {
+        if (memberDeptCode == null || memberDeptCode.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return secDbUserRepository.findByMemberDeptCode(memberDeptCode);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = NoResultException.class, transactionManager = "secTransactionManager")
-    public SecDbSession create(SecDbSession data) {
+    public SecDbUser create(SecDbUser data) {
         if (data == null) {
             return null;
         }
@@ -93,41 +110,45 @@ public class SecDbSessionService {
             }
             LocalDateTime now = LocalDateTime.now();
             data.setCreatedAt(now);
+            data.setUpdatedAt(now);
 
             // Check if already exists
-            if (data.getPid() != null && secDbSessionRepository.existsById(data.getPid())) {
-                return secDbSessionRepository.findById(data.getPid()).orElse(null);
+            if (data.getPid() != null && secDbUserRepository.existsById(data.getPid())) {
+                return secDbUserRepository.findById(data.getPid()).orElse(null);
             }
 
-            return secDbSessionRepository.save(data);
+            return secDbUserRepository.save(data);
         } catch (Exception e) {
             // Remove auto-generated pid if there was an error
             if (generatedPid) {
                 data.setPid(originalPid);
             }
-            System.err.println(String.format(Inz.x("cflib.dbtest.SecDbSessionService.rethrow"), e.getClass().getName(), "create", e.getLocalizedMessage()));
+            System.err.println(String.format(Inz.x("cflib.dbtest.SecDbUserService.rethrow"), e.getClass().getName(), "create", e.getLocalizedMessage()));
             e.printStackTrace(System.err);
-            throw new CFLibDbException(SecDbSessionService.class, "create", String.format(Inz.s("cflib.dbtest.SecDbSessionService.rethrow"), e.getClass().getName(), e.getMessage()), "create", String.format(Inz.x("cflib.dbtest.SecDbSessionService.rethrow"), e.getClass().getName(), "create", e.getLocalizedMessage()), e);
+            throw new CFLibDbException(SecDbUserService.class, "create", String.format(Inz.s("cflib.dbtest.SecDbUserService.rethrow"), e.getClass().getName(), e.getMessage()), "create", String.format(Inz.x("cflib.dbtest.SecDbUserService.rethrow"), e.getClass().getName(), "create", e.getLocalizedMessage()), e);
         }
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = NoResultException.class, transactionManager = "secTransactionManager")
-    public SecDbSession update(SecDbSession data) {
+    public SecDbUser update(SecDbUser data) {
         if (data == null) {
             return null;
         }
         if (data.getPid() == null || data.getPid().isNull()) {
-            throw new CFLibNullArgumentException(SecDbSessionService.class, "update", 1, "data.pid");
+            throw new CFLibNullArgumentException(SecDbUserService.class, "update", 1, "data.pid");
         }
 
         // Check if the entity exists
-        SecDbSession existing = secDbSessionRepository.findById(data.getPid())
-            .orElseThrow(() -> new NoResultException("SecDbSession with pid " + data.getPid() + " does not exist"));
+        SecDbUser existing = secDbUserRepository.findById(data.getPid())
+            .orElseThrow(() -> new NoResultException("SecDbUser with pid " + data.getPid() + " does not exist"));
 
         // Update fields (except pid, createdAt)
-        existing.setSessTerminationInfo(data.getSessTerminationInfo());
-        existing.setTerminatedAt(data.getTerminatedAt());
+        existing.setUsername(data.getUsername());
+        existing.setEmail(data.getEmail());
+        existing.setMemberDeptCode(data.getMemberDeptCode());
+        // ... update other fields as needed ...
+        existing.setUpdatedAt(LocalDateTime.now());
 
-        return secDbSessionRepository.save(existing);
+        return secDbUserRepository.save(existing);
     }
 }

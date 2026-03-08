@@ -29,7 +29,7 @@
  *	for a commercial license at mark.sobkow@gmail.com
  */
 
-package io.github.msobkow.v3_1.cflib.dbtest;
+package server.markhome.mcf.v3_1.cflib.dbtest;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,14 +45,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.ConfigurableEnvironment;
 
-import io.github.msobkow.v3_1.cflib.inz.Inz;
-import io.github.msobkow.v3_1.cflib.inz.InzPathEntry;
+import server.markhome.mcf.v3_1.cflib.inz.Inz;
+import server.markhome.mcf.v3_1.cflib.inz.InzPathEntry;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
-    "io.github.msobkow.v3_1.cflib.dbtest.secdb",   // for secdb services
-    "io.github.msobkow.v3_1.cflib.dbtest.appdb",   // for appdb services
-    "io.github.msobkow.v3_1.cflib.dbtest.spring"   // if you have service beans here
+    "server.markhome.mcf.v3_1.cflib.dbtest.secdb",   // for secdb services
+    "server.markhome.mcf.v3_1.cflib.dbtest.appdb",   // for appdb services
+    "server.markhome.mcf.v3_1.cflib.dbtest.spring"   // if you have service beans here
 })
 @EnableAutoConfiguration(exclude = {
 })
@@ -174,7 +174,7 @@ public class DbTest
     }
 
     public static void main(String[] args) {
-        Inz.addPathEntry(new InzPathEntry( "/opt/mcf/v3_1/java" + "/io.github.msobkow.v3_1.cflib.dbtest/src/main/resources/io.github.msobkow/v3_1/cflib/dbtest/langs"));
+        Inz.addPathEntry(new InzPathEntry( "/opt/mcf/v3_1/java" + "/server.markhome.mcf.v3_1.cflib.dbtest/src/main/resources/server.markhome.mcf/v3_1/cflib/dbtest/langs"));
 
         // This weird looking cadence ensures that all the sub-property lists are prepared before getMergedProperties() is invoked, ensuring that any errors and exceptions along the way are thrown first and in predictable order
         Properties mergedProperties = getApplicationProperties();

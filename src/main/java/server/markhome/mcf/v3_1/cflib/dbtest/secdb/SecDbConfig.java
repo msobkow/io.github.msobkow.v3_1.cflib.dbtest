@@ -26,7 +26,7 @@
  *	tie it to proprietary code, please contact Mark Stephen Sobkow
  *	for a commercial license at mark.sobkow@gmail.com
  */
-package io.github.msobkow.v3_1.cflib.dbtest.secdb;
+package server.markhome.mcf.v3_1.cflib.dbtest.secdb;
 
 import javax.sql.DataSource;
 import jakarta.persistence.EntityManagerFactory;
@@ -37,10 +37,10 @@ import java.util.concurrent.atomic.AtomicReference;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import io.github.msobkow.v3_1.cflib.CFLibDbException;
-import io.github.msobkow.v3_1.cflib.CFLibNullArgumentException;
-import io.github.msobkow.v3_1.cflib.dbtest.DbTest;
-import io.github.msobkow.v3_1.cflib.inz.Inz;
+import server.markhome.mcf.v3_1.cflib.CFLibDbException;
+import server.markhome.mcf.v3_1.cflib.CFLibNullArgumentException;
+import server.markhome.mcf.v3_1.cflib.dbtest.DbTest;
+import server.markhome.mcf.v3_1.cflib.inz.Inz;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -54,10 +54,10 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
-//@EntityScan(basePackages = "io.github.msobkow.v3_1.cflib.dbtest.secdb")
+//@EntityScan(basePackages = "server.markhome.mcf.v3_1.cflib.dbtest.secdb")
 @EnableTransactionManagement
 @EnableJpaRepositories(
-    basePackages = "io.github.msobkow.v3_1.cflib.dbtest.secdb",
+    basePackages = "server.markhome.mcf.v3_1.cflib.dbtest.secdb",
     entityManagerFactoryRef = "secEntityManagerFactory",
     transactionManagerRef = "secTransactionManager"
 )
@@ -217,7 +217,7 @@ public class SecDbConfig {
                 // Configure EntityManagerFactoryBean
                 LocalContainerEntityManagerFactoryBean emfBean = new LocalContainerEntityManagerFactoryBean();
                 emfBean.setDataSource(secDataSource);
-                emfBean.setPackagesToScan("io.github.msobkow.v3_1.cflib.dbtest.secdb");
+                emfBean.setPackagesToScan("server.markhome.mcf.v3_1.cflib.dbtest.secdb");
                 emfBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
                 emfBean.setJpaProperties(secJpaProperties);
                 emfBean.setPersistenceUnitName(persistenceUnitName);

@@ -26,13 +26,10 @@
  *	tie it to proprietary code, please contact Mark Stephen Sobkow
  *	for a commercial license at mark.sobkow@gmail.com
  */
-package io.github.msobkow.v3_1.cflib.dbtest.appdb;
+package server.markhome.mcf.v3_1.cflib.dbtest.secdb;
 
-import io.github.msobkow.v3_1.cflib.dbutil.CFLibDbKeyHash256;
+import server.markhome.mcf.v3_1.cflib.dbutil.CFLibDbKeyHash256;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
 
-
-public interface AppDbAddressRepository extends JpaRepository<AppDbAddress, CFLibDbKeyHash256> {
-    public List<AppDbAddress> findByRefUID(CFLibDbKeyHash256 refUID);
+public interface SecDbSessionRepository extends JpaRepository<SecDbSession, CFLibDbKeyHash256> {
 }

@@ -26,7 +26,7 @@
  *	tie it to proprietary code, please contact Mark Stephen Sobkow
  *	for a commercial license at mark.sobkow@gmail.com
  */
-package io.github.msobkow.v3_1.cflib.dbtest.secdb;
+package server.markhome.mcf.v3_1.cflib.dbtest.secdb;
 
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
@@ -35,9 +35,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import io.github.msobkow.v3_1.cflib.CFLibArgumentOverflowException;
-import io.github.msobkow.v3_1.cflib.CFLibNullArgumentException;
-import io.github.msobkow.v3_1.cflib.dbutil.CFLibDbKeyHash256;
+import server.markhome.mcf.v3_1.cflib.CFLibArgumentOverflowException;
+import server.markhome.mcf.v3_1.cflib.CFLibNullArgumentException;
+import server.markhome.mcf.v3_1.cflib.dbutil.CFLibDbKeyHash256;
 
 @Entity
 @Table(
